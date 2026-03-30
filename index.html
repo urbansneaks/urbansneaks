@@ -9,12 +9,34 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #000;
+  background: #0a0a0a;
   color: white;
 }
 
-/*.hero {
+/* HEADER */
+header {
+  background: #000;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #222;
+}
+
+header img {
+  width: 140px;
+}
+
+/* HERO */
+.hero {
+  height: 80vh;
+  background: url("https://images.unsplash.com/photo-1542291026-7eec264c27ff");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  text-align: center;
 }
 
 .hero::before {
@@ -22,78 +44,53 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
-  top: 0;
-  left: 0;
+  background: rgba(0,0,0,0.6);
 }
 
 .hero * {
   position: relative;
 }
- HERO CU FUNDAL */
-.hero {
-  height: 100vh;
-  background: url("https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a");
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: brightness(0.6);
-  text-align: center;
-  animation: fadeIn 2s;
-}
-
-.hero img {
-  width: 200px;
-  animation: slideDown 1s;
-}
 
 .hero h1 {
   font-size: 50px;
-  margin: 10px;
-  animation: fadeIn 2s;
 }
 
 .hero p {
-  font-size: 18px;
-  color: #ddd;
+  color: #ccc;
 }
 
-/* BUTON */
+/* BUTTON */
 .btn {
   margin-top: 20px;
-  padding: 15px 25px;
-  background: red;
+  padding: 12px 25px;
+  background: white;
+  color: black;
   border: none;
-  color: white;
-  font-size: 18px;
   cursor: pointer;
-  border-radius: 5px;
-  animation: pulse 2s infinite;
+  transition: 0.3s;
 }
 
 .btn:hover {
-  background: darkred;
+  transform: scale(1.1);
 }
 
 /* PRODUSE */
 .products {
+  padding: 40px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-  padding: 40px;
-  background: #111;
+  gap: 25px;
 }
 
 .card {
-  background: #1a1a1a;
+  background: #111;
   border-radius: 10px;
   overflow: hidden;
-  transform: translateY(50px);
-  opacity: 0;
-  animation: show 1s forwards;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
 }
 
 .card img {
@@ -105,14 +102,15 @@ body {
 }
 
 .price {
-  color: red;
-  font-size: 20px;
+  font-size: 18px;
 }
 
+/* BUTTON PRODUS */
 button {
   width: 100%;
   padding: 10px;
   background: white;
+  color: black;
   border: none;
   cursor: pointer;
 }
@@ -121,35 +119,27 @@ button:hover {
   background: #ddd;
 }
 
-/* ANIMATII */
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
+/* CART */
+.cart {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  background: #050505;
+  border-left: 1px solid #222;
+  padding: 15px;
 }
 
-@keyframes slideDown {
-  from {transform: translateY(-50px); opacity:0;}
-  to {transform: translateY(0); opacity:1;}
-}
-
-@keyframes pulse {
-  0% {transform: scale(1);}
-  50% {transform: scale(1.05);}
-  100% {transform: scale(1);}
-}
-
-@keyframes show {
-  to {
-    opacity:1;
-    transform: translateY(0);
-  }
+.cart h2 {
+  text-align: center;
 }
 
 /* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
-  background: black;
+  border-top: 1px solid #222;
   color: #777;
 }
 </style>
@@ -159,7 +149,29 @@ let cart = [];
 
 function addToCart(name, price) {
   cart.push({name, price});
-  alert(name + " adăugat în coș!");
+  updateCart();
+}
+
+function updateCart() {
+  let list = document.getElementById("cart-items");
+  list.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    list.innerHTML += "<p>" + item.name + " - " + item.price + " RON</p>";
+    total += item.price;
+  });
+
+  document.getElementById("total").innerText = "Total: " + total + " RON";
+}
+
+function order() {
+  let message = "Comandă:%0A";
+  cart.forEach(item => {
+    message += item.name + " - " + item.price + " RON%0A";
+  });
+
+  window.open("https://wa.me/40700000000?text=" + message);
 }
 </script>
 
@@ -167,45 +179,53 @@ function addToCart(name, price) {
 
 <body>
 
-<!-- HERO -->
-<section class="hero">
+<header>
 <img src="logo.png">
+</header>
+
+<section class="hero">
 <h1>URBAN SNEAKS</h1>
-<p>Sneakers premium. Stil care atrage 🔥</p>
-<button class="btn" onclick="document.getElementById('shop').scrollIntoView()">SHOP NOW</button>
+<p>Sneakers premium. Stil autentic.</p>
+<button class="btn" onclick="document.getElementById('shop').scrollIntoView()">Shop Now</button>
 </section>
 
-<!-- PRODUSE -->
 <section id="shop" class="products">
 
 <div class="card">
-<img src="https://via.placeholder.com/400">
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
 <div class="info">
 <h3>Air Force 1</h3>
 <p class="price">450 RON</p>
-<button onclick="addToCart('Air Force',450)">Adaugă</button>
+<button onclick="addToCart('Air Force 1',450)">Adaugă în coș</button>
 </div>
 </div>
 
 <div class="card">
-<img src="https://via.placeholder.com/400">
+<img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77">
 <div class="info">
 <h3>Jordan 1</h3>
 <p class="price">800 RON</p>
-<button onclick="addToCart('Jordan',800)">Adaugă</button>
+<button onclick="addToCart('Jordan 1',800)">Adaugă în coș</button>
 </div>
 </div>
 
 <div class="card">
-<img src="https://via.placeholder.com/400">
+<img src="https://images.unsplash.com/photo-1519741497674-611481863552">
 <div class="info">
 <h3>Yeezy Boost</h3>
 <p class="price">900 RON</p>
-<button onclick="addToCart('Yeezy',900)">Adaugă</button>
+<button onclick="addToCart('Yeezy',900)">Adaugă în coș</button>
 </div>
 </div>
 
 </section>
+
+<div class="cart">
+<h2>🛒 Coș</h2>
+<div id="cart-items"></div>
+<p id="total">Total: 0 RON</p>
+<button onclick="order()">Finalizează</button>
+</div>
 
 <footer>
 © 2026 Urban Sneaks
@@ -213,4 +233,3 @@ function addToCart(name, price) {
 
 </body>
 </html>
-logo.png.png
