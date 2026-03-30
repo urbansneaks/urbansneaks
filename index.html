@@ -13,30 +13,16 @@ body {
   color: white;
 }
 
-/* HEADER */
-header {
-  background: #000;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 1px solid #222;
-}
-
-header img {
-  width: 200px;
-}
-
 /* HERO */
 .hero {
-  height: 80vh;
-  background: url("https://images.unsplash.com/photo-1542291026-7eec264c27ff");
+  height: 100vh;
+  background: url("https://images.unsplash.com/photo-1528701800489-20be3c7c2b1b");
   background-size: cover;
   background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
 }
 
 .hero::before {
@@ -44,53 +30,55 @@ header img {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
 }
 
-.hero * {
+.hero-content {
   position: relative;
+  z-index: 2;
+  max-width: 500px;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  width: 150px;
 }
 
 .hero h1 {
-  font-size: 50px;
+  font-size: 60px;
 }
 
-.hero p {
-  color: #ccc;
-}
-
-/* BUTTON */
 .btn {
   margin-top: 20px;
-  padding: 12px 25px;
-  background: white;
-  color: black;
+  padding: 15px 30px;
+  background: linear-gradient(45deg, red, orange);
   border: none;
+  color: white;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  transform: scale(1.1);
 }
 
 /* PRODUSE */
 .products {
-  padding: 40px;
+  padding: 60px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 25px;
+  gap: 30px;
 }
 
 .card {
-  background: #111;
+  background: #1c1c1c;
   border-radius: 10px;
   overflow: hidden;
-  transition: 0.3s;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 0.5s;
 }
 
-.card:hover {
-  transform: translateY(-8px);
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card img {
@@ -101,45 +89,44 @@ header img {
   padding: 15px;
 }
 
-.price {
-  font-size: 18px;
-}
-
-/* BUTTON PRODUS */
 button {
   width: 100%;
   padding: 10px;
   background: white;
-  color: black;
   border: none;
   cursor: pointer;
-}
-
-button:hover {
-  background: #ddd;
 }
 
 /* CART */
 .cart {
   position: fixed;
-  right: 0;
+  right: -300px;
   top: 0;
   width: 260px;
   height: 100%;
-  background: #050505;
-  border-left: 1px solid #222;
+  background: #000;
   padding: 15px;
+  transition: 0.4s;
 }
 
-.cart h2 {
-  text-align: center;
+.cart.active {
+  right: 0;
+}
+
+.cart-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: red;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
-  border-top: 1px solid #222;
   color: #777;
 }
 </style>
@@ -147,46 +134,50 @@ footer {
 <script>
 let cart = [];
 
-function addToCart(name, price) {
+function add(name, price) {
   cart.push({name, price});
-  updateCart();
+  update();
 }
 
-function updateCart() {
+function update() {
   let list = document.getElementById("cart-items");
   list.innerHTML = "";
   let total = 0;
 
-  cart.forEach(item => {
-    list.innerHTML += "<p>" + item.name + " - " + item.price + " RON</p>";
-    total += item.price;
+  cart.forEach(i => {
+    list.innerHTML += "<p>"+i.name+" "+i.price+" RON</p>";
+    total += i.price;
   });
 
-  document.getElementById("total").innerText = "Total: " + total + " RON";
+  document.getElementById("total").innerText = total + " RON";
 }
 
-function order() {
-  let message = "Comandă:%0A";
-  cart.forEach(item => {
-    message += item.name + " - " + item.price + " RON%0A";
+function toggleCart() {
+  document.getElementById("cart").classList.toggle("active");
+}
+
+/* SCROLL ANIMATION */
+window.addEventListener("scroll", () => {
+  document.querySelectorAll(".card").forEach(card => {
+    let pos = card.getBoundingClientRect().top;
+    if(pos < window.innerHeight - 50){
+      card.classList.add("show");
+    }
   });
-
-  window.open("https://wa.me/40700000000?text=" + message);
-}
+});
 </script>
 
 </head>
 
 <body>
 
-<header>
-<img src="logo.png">
-</header>
-
 <section class="hero">
+<img src="logo.png" class="logo">
+<div class="hero-content">
 <h1>URBAN SNEAKS</h1>
-<p>Sneakers premium. Stil autentic.</p>
-<button class="btn" onclick="document.getElementById('shop').scrollIntoView()">Shop Now</button>
+<p>Stil premium. Impact real.</p>
+<button class="btn" onclick="document.getElementById('shop').scrollIntoView()">Shop</button>
+</div>
 </section>
 
 <section id="shop" class="products">
@@ -195,8 +186,8 @@ function order() {
 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
 <div class="info">
 <h3>Air Force 1</h3>
-<p class="price">450 RON</p>
-<button onclick="addToCart('Air Force 1',450)">Adaugă în coș</button>
+<p>450 RON</p>
+<button onclick="add('Air Force',450)">Adaugă</button>
 </div>
 </div>
 
@@ -204,28 +195,30 @@ function order() {
 <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77">
 <div class="info">
 <h3>Jordan 1</h3>
-<p class="price">800 RON</p>
-<button onclick="addToCart('Jordan 1',800)">Adaugă în coș</button>
+<p>800 RON</p>
+<button onclick="add('Jordan',800)">Adaugă</button>
 </div>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
 <div class="info">
-<h3>Yeezy Boost</h3>
-<p class="price">900 RON</p>
-<button onclick="addToCart('Yeezy',900)">Adaugă în coș</button>
+<h3>Yeezy</h3>
+<p>900 RON</p>
+<button onclick="add('Yeezy',900)">Adaugă</button>
 </div>
 </div>
 
 </section>
 
-<div class="cart">
-<h2>🛒 Coș</h2>
+<!-- CART -->
+<div id="cart" class="cart">
+<h2>Coș</h2>
 <div id="cart-items"></div>
-<p id="total">Total: 0 RON</p>
-<button onclick="order()">Finalizează</button>
+<p>Total: <span id="total">0</span></p>
 </div>
+
+<div class="cart-btn" onclick="toggleCart()">🛒</div>
 
 <footer>
 © 2026 Urban Sneaks
