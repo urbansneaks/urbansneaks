@@ -13,36 +13,33 @@ body {
   color: white;
 }
 
+/* HEADER */
 header {
-  background: #000;
-  padding: 20px;
   text-align: center;
+  padding: 20px;
   border-bottom: 1px solid #222;
 }
 
 header img {
-  width: 200px;
+  width: 180px;
 }
 
+/* HERO */
 .hero {
   text-align: center;
-  padding: 60px 20px;
+  padding: 40px;
 }
 
 .hero h1 {
-  font-size: 50px;
-  letter-spacing: 2px;
+  font-size: 40px;
 }
 
-.hero p {
-  color: #aaa;
-}
-
+/* PRODUCTS */
 .products {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  padding: 40px;
+  gap: 25px;
+  padding: 20px;
 }
 
 .card {
@@ -66,23 +63,21 @@ header img {
 
 .price {
   font-size: 20px;
-  margin: 10px 0;
+  color: #fff;
 }
 
+/* BUTTON */
 button {
   width: 100%;
   padding: 12px;
   background: white;
   color: black;
   border: none;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
 }
 
-button:hover {
-  background: #ddd;
-}
-
+/* CART */
 .cart {
   position: fixed;
   right: 0;
@@ -98,15 +93,21 @@ button:hover {
   text-align: center;
 }
 
-.section {
-  padding: 40px;
+/* REVIEWS */
+.reviews {
+  padding: 20px;
   text-align: center;
 }
 
+.review {
+  margin: 10px;
+  color: #ccc;
+}
+
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
-  border-top: 1px solid #222;
   color: #777;
 }
 </style>
@@ -152,7 +153,7 @@ function order() {
 
 <section class="hero">
 <h1>URBAN SNEAKS</h1>
-<p>Streetwear premium. Stil autentic.</p>
+<p>🔥 Sneakers premium | Livrare rapidă 🔥</p>
 </section>
 
 <section class="products">
@@ -193,9 +194,11 @@ function order() {
 <button onclick="order()">Finalizează</button>
 </div>
 
-<section class="section">
-<h2>Despre Urban Sneaks</h2>
-<p>Brand premium de sneakers. Livrare rapidă în toată România.</p>
+<section class="reviews">
+<h2>Recenzii</h2>
+<p class="review">⭐⭐⭐⭐⭐ „Top calitate!”</p>
+<p class="review">⭐⭐⭐⭐⭐ „Livrare rapidă!”</p>
+<p class="review">⭐⭐⭐⭐⭐ „Recomand!”</p>
 </section>
 
 <footer>
