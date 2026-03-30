@@ -8,217 +8,188 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial;
-  background: #0a0a0a;
-  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  background: white;
+  color: black;
+}
+
+/* HEADER */
+header {
+  position: sticky;
+  top: 0;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  border-bottom: 1px solid #eee;
+  z-index: 1000;
+}
+
+header img {
+  width: 110px;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 40px;
+  background: white;
+  padding: 10px;
+  display: none;
+  border: 1px solid #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* SEARCH */
+.search {
+  padding: 8px;
+  border: 1px solid #ccc;
 }
 
 /* HERO */
 .hero {
-  height: 100vh;
-  background: url("https://images.unsplash.com/photo-1528701800489-20be3c7c2b1b");
+  height: 90vh;
+  background: url("https://images.unsplash.com/photo-1600185365483-26d7a4cc7519");
   background-size: cover;
-  background-position: center;
-  position: relative;
   display: flex;
   align-items: center;
   padding-left: 60px;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 500px;
-}
-
-.logo {
-  position: absolute;
-  top: 20px;
-  left: 40px;
-  width: 150px;
+  color: white;
 }
 
 .hero h1 {
-  font-size: 60px;
+  font-size: 70px;
 }
 
+/* BUTTON */
 .btn {
   margin-top: 20px;
-  padding: 15px 30px;
-  background: linear-gradient(45deg, red, orange);
-  border: none;
+  padding: 15px 25px;
+  background: black;
   color: white;
+  border: none;
   cursor: pointer;
 }
 
-/* PRODUSE */
+/* PRODUCTS */
+.section-title {
+  padding: 40px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
 .products {
-  padding: 60px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 30px;
+  gap: 25px;
+  padding: 0 40px 60px;
 }
 
 .card {
-  background: #1c1c1c;
-  border-radius: 10px;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card img {
   width: 100%;
 }
 
-.info {
-  padding: 15px;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  background: white;
-  border: none;
-  cursor: pointer;
-}
-
-/* CART */
-.cart {
-  position: fixed;
-  right: -300px;
-  top: 0;
-  width: 260px;
-  height: 100%;
-  background: #000;
-  padding: 15px;
-  transition: 0.4s;
-}
-
-.cart.active {
-  right: 0;
-}
-
-.cart-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: red;
-  padding: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 /* FOOTER */
 footer {
+  padding: 40px;
+  background: #f5f5f5;
   text-align: center;
-  padding: 20px;
-  color: #777;
 }
 </style>
 
 <script>
-let cart = [];
-
-function add(name, price) {
-  cart.push({name, price});
-  update();
+function buy(name){
+  alert("Ai ales: " + name);
 }
-
-function update() {
-  let list = document.getElementById("cart-items");
-  list.innerHTML = "";
-  let total = 0;
-
-  cart.forEach(i => {
-    list.innerHTML += "<p>"+i.name+" "+i.price+" RON</p>";
-    total += i.price;
-  });
-
-  document.getElementById("total").innerText = total + " RON";
-}
-
-function toggleCart() {
-  document.getElementById("cart").classList.toggle("active");
-}
-
-/* SCROLL ANIMATION */
-window.addEventListener("scroll", () => {
-  document.querySelectorAll(".card").forEach(card => {
-    let pos = card.getBoundingClientRect().top;
-    if(pos < window.innerHeight - 50){
-      card.classList.add("show");
-    }
-  });
-});
 </script>
 
 </head>
 
 <body>
 
+<header>
+<img src="logo.png">
+
+<nav>
+<a href="#">Home</a>
+
+<div class="dropdown">
+<a href="#">Shop</a>
+<div class="dropdown-content">
+<p>Air Force</p>
+<p>Jordan</p>
+<p>Yeezy</p>
+</div>
+</div>
+
+<a href="#">Contact</a>
+<input class="search" placeholder="Search">
+</nav>
+
+</header>
+
 <section class="hero">
-<img src="logo.png" class="logo">
-<div class="hero-content">
-<h1>URBAN SNEAKS</h1>
-<p>Stil premium. Impact real.</p>
-<button class="btn" onclick="document.getElementById('shop').scrollIntoView()">Shop</button>
+<div>
+<h1>STILUL ÎNCEPE CU TINE</h1>
+<button class="btn">Cumpără acum</button>
 </div>
 </section>
 
-<section id="shop" class="products">
+<div class="section-title">Produse populare</div>
+
+<section class="products">
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
-<div class="info">
 <h3>Air Force 1</h3>
 <p>450 RON</p>
-<button onclick="add('Air Force',450)">Adaugă</button>
-</div>
+<button onclick="buy('Air Force 1')">Cumpără</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77">
-<div class="info">
 <h3>Jordan 1</h3>
 <p>800 RON</p>
-<button onclick="add('Jordan',800)">Adaugă</button>
-</div>
+<button onclick="buy('Jordan 1')">Cumpără</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
-<div class="info">
-<h3>Yeezy</h3>
+<h3>Yeezy Boost</h3>
 <p>900 RON</p>
-<button onclick="add('Yeezy',900)">Adaugă</button>
-</div>
+<button onclick="buy('Yeezy')">Cumpără</button>
 </div>
 
 </section>
-
-<!-- CART -->
-<div id="cart" class="cart">
-<h2>Coș</h2>
-<div id="cart-items"></div>
-<p>Total: <span id="total">0</span></p>
-</div>
-
-<div class="cart-btn" onclick="toggleCart()">🛒</div>
 
 <footer>
 © 2026 Urban Sneaks
