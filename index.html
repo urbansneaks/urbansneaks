@@ -8,127 +8,95 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial;
   background: white;
-  color: black;
 }
 
 /* HEADER */
 header {
-  position: sticky;
-  top: 0;
-  background: white;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 15px 40px;
+  padding: 15px 30px;
   border-bottom: 1px solid #eee;
-  z-index: 1000;
 }
 
 header img {
   width: 110px;
 }
 
-/* NAV */
-nav {
-  display: flex;
-  align-items: center;
-}
-
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-}
-
-/* DROPDOWN */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  position: absolute;
-  top: 40px;
-  background: white;
-  padding: 10px;
-  display: none;
-  border: 1px solid #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* SEARCH */
-.search {
-  padding: 8px;
-  border: 1px solid #ccc;
-}
-
 /* HERO */
 .hero {
-  height: 90vh;
+  height: 70vh;
   background: url("https://images.unsplash.com/photo-1600185365483-26d7a4cc7519");
   background-size: cover;
   display: flex;
   align-items: center;
-  padding-left: 60px;
+  padding: 40px;
   color: white;
 }
 
 .hero h1 {
-  font-size: 70px;
+  font-size: 60px;
 }
 
-/* BUTTON */
-.btn {
-  margin-top: 20px;
-  padding: 15px 25px;
+/* PRODUSE */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.card {
+  border: 1px solid #eee;
+  padding: 10px;
+  position: relative;
+}
+
+/* BADGE */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: red;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+/* BUTON */
+button {
+  width: 100%;
+  padding: 10px;
   background: black;
   color: white;
   border: none;
   cursor: pointer;
 }
 
-/* PRODUCTS */
-.section-title {
-  padding: 40px;
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 25px;
-  padding: 0 40px 60px;
-}
-
-.card {
-  transition: 0.4s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-.card img {
-  width: 100%;
-}
-
-/* FOOTER */
-footer {
-  padding: 40px;
-  background: #f5f5f5;
+/* REVIEW */
+.reviews {
+  padding: 30px;
+  background: #f9f9f9;
   text-align: center;
+}
+
+.review {
+  margin: 10px;
+}
+
+/* LIVRARE */
+.delivery {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
 }
 </style>
 
 <script>
-function buy(name){
-  alert("Ai ales: " + name);
+function order(name, price){
+  let msg = "Salut! Vreau sa comand: " + name + " - " + price + " RON";
+  window.open("https://wa.me/40700000000?text=" + encodeURIComponent(msg));
 }
 </script>
 
@@ -138,62 +106,49 @@ function buy(name){
 
 <header>
 <img src="logo.png">
-
-<nav>
-<a href="#">Home</a>
-
-<div class="dropdown">
-<a href="#">Shop</a>
-<div class="dropdown-content">
-<p>Air Force</p>
-<p>Jordan</p>
-<p>Yeezy</p>
-</div>
-</div>
-
-<a href="#">Contact</a>
-<input class="search" placeholder="Search">
-</nav>
-
 </header>
 
 <section class="hero">
-<div>
-<h1>STILUL ÎNCEPE CU TINE</h1>
-<button class="btn">Cumpără acum</button>
-</div>
+<h1>SNEAKERS CARE ATRAG 🔥</h1>
 </section>
 
-<div class="section-title">Produse populare</div>
+<div class="delivery">
+🚚 Livrare rapidă 24-48h | Plata la livrare
+</div>
 
 <section class="products">
 
 <div class="card">
+<div class="badge">HOT</div>
 <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
 <h3>Air Force 1</h3>
 <p>450 RON</p>
-<button onclick="buy('Air Force 1')">Cumpără</button>
+<button onclick="order('Air Force 1',450)">Comandă</button>
 </div>
 
 <div class="card">
+<div class="badge">SALE</div>
 <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77">
 <h3>Jordan 1</h3>
 <p>800 RON</p>
-<button onclick="buy('Jordan 1')">Cumpără</button>
+<button onclick="order('Jordan 1',800)">Comandă</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1519741497674-611481863552">
 <h3>Yeezy Boost</h3>
 <p>900 RON</p>
-<button onclick="buy('Yeezy')">Cumpără</button>
+<button onclick="order('Yeezy',900)">Comandă</button>
 </div>
 
 </section>
 
-<footer>
-© 2026 Urban Sneaks
-</footer>
+<section class="reviews">
+<h2>Recenzii clienți</h2>
+<p class="review">⭐⭐⭐⭐⭐ „Calitate top!”</p>
+<p class="review">⭐⭐⭐⭐⭐ „Au ajuns super rapid!”</p>
+<p class="review">⭐⭐⭐⭐⭐ „Recomand!”</p>
+</section>
 
 </body>
 </html>
